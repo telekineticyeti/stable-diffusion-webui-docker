@@ -3,24 +3,24 @@
 set -Eeuo pipefail
 
 # TODO: move all mkdir -p ?
-mkdir -p /data/config/auto/scripts/
+mkdir -p /data/config/forge/scripts/
 # mount scripts individually
 
 echo $ROOT
 ls -lha $ROOT
 
 find "${ROOT}/scripts/" -maxdepth 1 -type l -delete
-cp -vrfTs /data/config/auto/scripts/ "${ROOT}/scripts/"
+cp -vrfTs /data/config/forge/scripts/ "${ROOT}/scripts/"
 
 # Set up config file
-python /docker/config.py /data/config/auto/config.json
+python /docker/config.py /data/config/forge/config.json
 
-if [ ! -f /data/config/auto/ui-config.json ]; then
-  echo '{}' >/data/config/auto/ui-config.json
+if [ ! -f /data/config/forge/ui-config.json ]; then
+  echo '{}' >/data/config/forge/ui-config.json
 fi
 
-if [ ! -f /data/config/auto/styles.csv ]; then
-  touch /data/config/auto/styles.csv
+if [ ! -f /data/config/forge/styles.csv ]; then
+  touch /data/config/forge/styles.csv
 fi
 
 # copy models from original models folder
@@ -35,11 +35,11 @@ MOUNTS["/root/.cache"]="/data/.cache"
 MOUNTS["${ROOT}/models"]="/data/models"
 
 MOUNTS["${ROOT}/embeddings"]="/data/embeddings"
-MOUNTS["${ROOT}/config.json"]="/data/config/auto/config.json"
-MOUNTS["${ROOT}/ui-config.json"]="/data/config/auto/ui-config.json"
-MOUNTS["${ROOT}/styles.csv"]="/data/config/auto/styles.csv"
-MOUNTS["${ROOT}/extensions"]="/data/config/auto/extensions"
-MOUNTS["${ROOT}/config_states"]="/data/config/auto/config_states"
+MOUNTS["${ROOT}/config.json"]="/data/config/forge/config.json"
+MOUNTS["${ROOT}/ui-config.json"]="/data/config/forge/ui-config.json"
+MOUNTS["${ROOT}/styles.csv"]="/data/config/forge/styles.csv"
+MOUNTS["${ROOT}/extensions"]="/data/config/forge/extensions"
+MOUNTS["${ROOT}/config_states"]="/data/config/forge/config_states"
 
 # extra hacks
 MOUNTS["${ROOT}/repositories/CodeFormer/weights/facelib"]="/data/.cache"
@@ -75,10 +75,10 @@ for installscript in "${list[@]}"; do
   PYTHONPATH=${ROOT} python "$installscript"
 done
 
-if [ -f "/data/config/auto/startup.sh" ]; then
+if [ -f "/data/config/forge/startup.sh" ]; then
   pushd ${ROOT}
   echo "Running startup script"
-  . /data/config/auto/startup.sh
+  . /data/config/forge/startup.sh
   popd
 fi
 

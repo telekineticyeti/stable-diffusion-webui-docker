@@ -7,18 +7,18 @@ import re
 import os.path
 import sys
 
-DEFAULT_FILEPATH = '/data/config/auto/config.json'
+DEFAULT_FILEPATH = '/data/config/forge/config.json'
 
 DEFAULT_OUTDIRS = {
   "outdir_samples": "",
-  "outdir_txt2img_samples": "/output/txt2img",
-  "outdir_img2img_samples": "/output/img2img",
-  "outdir_extras_samples": "/output/extras",
+  "outdir_txt2img_samples": "/output/forge/txt2img",
+  "outdir_img2img_samples": "/output/forge/img2img",
+  "outdir_extras_samples": "/output/forge/extras",
   "outdir_grids": "",
-  "outdir_txt2img_grids": "/output/txt2img-grids",
-  "outdir_img2img_grids": "/output/img2img-grids",
-  "outdir_save": "/output/saved",
-  "outdir_init_images": "/output/init-images",
+  "outdir_txt2img_grids": "/output/forge/txt2img-grids",
+  "outdir_img2img_grids": "/output/forge/img2img-grids",
+  "outdir_save": "/output/forge/saved",
+  "outdir_init_images": "/output/forge/init-images",
 }
 RE_VALID_OUTDIR = re.compile(r"(^/output(/\.?[\w\-\_]+)+/?$)|(^\s?$)")
 
